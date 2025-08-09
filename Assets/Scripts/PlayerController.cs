@@ -5,84 +5,46 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("移動速度"), SerializeField]
-    private float speed_ = 5.0f;
+    // 各種移動処理
+    private CharacterController2D characterController_;
 
-    [Header("最大落下速度"), SerializeField]
-    private float maxFallSpeed_ = 10.0f;
-
-    [Header("ジャンプの初速度"), SerializeField]
-    private float jumpSpeed_ = 10.0f;
-
-    [Header("重力加速度"), SerializeField]
-    private float gravity_ = 9.8f;
-    
-
-    private Rigidbody2D rb_;
-
+    // 寄生処理の担うコンポーネント
+    private Parasite parasite_;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        rb_ = GetComponent<Rigidbody2D>();
-
-        // RigidBodyの当たり判定を座標基準から、移動した軌跡で計算するように変更
-        rb_.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        characterController_ = GetComponent<CharacterController2D>();
+        parasite_ = GetComponent<Parasite>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
-        MoveUpdate();
-    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 移動処理
+        MovementModule movement = parasite_.GetMovementModule();
+        if (movement != null)
         {
-            Jump();
-        }
-    }
-
-    private void MoveUpdate()
-    {
-        Vector2 velocity = rb_.velocity;
-
-        // 水平方向移動
-        float ax = Input.GetAxis("Horizontal");
-        if (Mathf.Approximately(ax, 0f))
-        {
-            velocity.x = 0f;
+            movement.Move(characterController_);
         }
         else
         {
-            velocity.x = ax * speed_;
+            Debug.Log("MovementModuleが設定されていません");
         }
+    }
 
-        // 落下速度制限
-        velocity.y = Mathf.Max(velocity.y, -maxFallSpeed_);
+    private void DefaultMove()
+    {
+        float inputX = Input.GetAxis("Horizontal");
+        characterController_.HorizontalMove(inputX);
 
-        rb_.velocity = velocity;
-
-        if(IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            velocity.y = 0.0f;
+            characterController_.Jump();
         }
-        
     }
+    
 
-    private void Jump()
-    {
-        // 一度、速度Yを０にして下降中でも地上と同じジャンプできるように
-        Vector2 velocity = rb_.velocity;
-        velocity.y = 0.0f;
-        rb_.velocity = velocity;
-        rb_.AddForce(Vector2.up * jumpSpeed_, ForceMode2D.Impulse);
-    }
-
-    private bool IsGrounded()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
-        return hit.collider != null;
-    }
+   
 }
