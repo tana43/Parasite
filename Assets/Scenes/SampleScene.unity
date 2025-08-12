@@ -341,6 +341,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1166290248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6411031107198144166, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+  m_PrefabInstance: {fileID: 3561759913990067167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1166290254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166290248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 906311bd3d4de5d459be84b307ce9f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed_: 5
+  maxFallSpeed_: 10
+  jumpSpeed_: 10
+  gravity_: 9.81
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!61 &1166290255
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166290248}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.21133333}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.28866667}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1503733699
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +473,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 85af5e078d9603e42ae82e3eb51978d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -457,6 +526,7 @@ MonoBehaviour:
   speed_: 5
   maxFallSpeed_: 10
   jumpSpeed_: 28.3
+  gravity_: 9.81
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -496,7 +566,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.5, y: 1.2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -686,6 +756,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Worm
       objectReference: {fileID: 0}
+    - target: {fileID: 6564502083856006631, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 7f086fddbd7c15444bf9c45e9e47d63e, type: 2}
     - target: {fileID: 8249373176668870857, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.48
@@ -729,7 +803,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6411031107198144166, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1166290254}
+    - targetCorrespondingSourceObject: {fileID: 6411031107198144166, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1166290255}
   m_SourcePrefab: {fileID: 100100000, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
