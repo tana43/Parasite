@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerInput : MonoBehaviour
+{
+    public bool inputAttack_ { get;private set }
+    public float inputHorizontalMove_ { get; private set; }
+    public bool inputJump_ { get; private set; }
+    public bool inputParasiteAttack_ { get; private set; }
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateAttack();
+
+        UpdateJump();
+
+        UpdateParasiteAttack();
+
+        UpdateHorizontalMove();
+    }
+
+    private void UpdateAttack()
+    {
+        inputAttack_ = Input.GetKeyDown(KeyCode.E);
+    }
+
+    private void UpdateHorizontalMove()
+    {
+        inputHorizontalMove_ = Input.GetAxis("Horizontal");
+    }
+
+    private void UpdateJump()
+    {
+        inputJump_ = Input.GetKeyDown(KeyCode.Space);
+    }
+
+    private void UpdateParasiteAttack()
+    {
+        inputParasiteAttack_ = Input.GetKeyDown(KeyCode.F);
+    }
+}

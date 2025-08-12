@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
     // 各種移動処理
@@ -10,6 +11,17 @@ public class PlayerController : MonoBehaviour
 
     // 寄生処理の担うコンポーネント
     private Parasite parasite_;
+
+    private PlayerInput input_;
+
+    [Header("横方向への速度"),SerializeField]
+    private float horizontalSpeed_ = 5.0f;
+
+    [Header("落下速度"),SerializeField]
+    private float maxFallSpeed_ = 5.0f;
+
+    [Header("重力"),SerializeField]
+    private float gravity_ = 10.0f;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,8 +48,8 @@ public class PlayerController : MonoBehaviour
 
     private void DefaultMove()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        characterController_.HorizontalMove(inputX);
+        float move = input_.inputHorizontalMove_;
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
