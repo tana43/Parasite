@@ -70,6 +70,14 @@ public class CharacterController2D : MonoBehaviour
     {
         previousPosition_ = rigidbody2D_.position;
         currentPosition_ = previousPosition_ + nextMovement_;
+
+        velocity_ = (currentPosition_ - previousPosition_) / Time.deltaTime;
+        rigidbody2D_.MovePosition(currentPosition_);
+        nextMovement_ = Vector2.zero;
+
+        // “Vˆä‚Æ’n–Ê‚Æ‚Ì”»’è
+        CheckCapsuleEndCollisions(true);
+        CheckCapsuleEndCollisions(false);
     }
 
     /// <summary>

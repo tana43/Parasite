@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInput input_;
 
-    [Header("横方向への速度"),SerializeField]
+    [Header("横方向への速度")]
     private float horizontalSpeed_ = 5.0f;
 
     [Header("落下速度"),SerializeField]
@@ -23,11 +23,22 @@ public class PlayerController : MonoBehaviour
     [Header("重力"),SerializeField]
     private float gravity_ = 10.0f;
 
+    [Header("ジャンプ力"),SerializeField]
+    private float jumpPower_ = 5.0f;
+
+    private Vector2 moveVector_;
+
     // Start is called before the first frame update
     void Awake()
     {
         characterController_ = GetComponent<CharacterController2D>();
         parasite_ = GetComponent<Parasite>();
+        input_ = GetComponent<PlayerInput>();
+    }
+
+    private void FixedUpdate()
+    {
+        characterController_.Move(moveVector_ * Time.deltaTime);
     }
 
     // Update is called once per frame
@@ -38,7 +49,7 @@ public class PlayerController : MonoBehaviour
         MovementModule movement = parasite_.GetMovementModule();
         if (movement != null)
         {
-            movement.Move(characterController_);
+            movement.Move(this);
         }
         else
         {
@@ -46,17 +57,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void DefaultMove()
+    /// <summary>
+    /// 水平方向の動きのみを更新するメソッド
+    /// </summary>
+    public void UpdateHorizontalMovement()
     {
-        float move = input_.inputHorizontalMove_;
+        float inputMove = input_.inputHorizontalMove_;
 
+        moveVector_.x = inputMove * horizontalSpeed_; 
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+    public void UpdateVerticalMovement()
+    {
+        // 重力処理
+        moveVector_.y -= gravity_;
+
+        // 落下速度制限
+        if (moveVector_.y < maxFallSpeed_)
         {
-            characterController_.Jump();
+            moveVector_.y = -maxFallSpeed_;
         }
     }
-    
 
+    /// <summary>
+    /// ジャンプの更新処理のみをするメソッド
+    /// </summary>
+    public void UpdateJump()
+    {
+        if(input_.inputJump_)
+        {
+            moveVector_.y += jumpPower_;
+        }
+    }
    
 }

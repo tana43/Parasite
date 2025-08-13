@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class WalkJumpMovementModule : MovementModule
 {
-    public override void Move(CharacterController2D characterController)
+    public override void Move(PlayerController pc)
     {
-        float inputX = Input.GetAxis("Horizontal");
-        characterController.HorizontalMove(inputX);
+        pc.UpdateHorizontalMovement();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            characterController.Jump();
-        }
+        pc.UpdateVerticalMovement();
+
+        pc.UpdateJump();
     }
 }

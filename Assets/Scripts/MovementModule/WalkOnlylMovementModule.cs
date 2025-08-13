@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class HorizontalMovementModule : MovementModule
 {
-    public override void Move(CharacterController2D characterController)
+    public override void Move(PlayerController pc)
     {
-        float inputX = Input.GetAxis("Horizontal");
-        characterController.HorizontalMove(inputX);
+        pc.UpdateHorizontalMovement();
+
+        pc.UpdateVerticalMovement();
     }
 }
