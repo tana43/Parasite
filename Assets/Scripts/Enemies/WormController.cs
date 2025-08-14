@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WormController : EnemyController,IParasiteHost
+public class WormController : MonoBehaviour,IParasiteHost
 {
     private WalkJumpMovementModule movement_ = new WalkJumpMovementModule();
     private OneHealthModule health_ = new OneHealthModule();
@@ -13,7 +13,7 @@ public class WormController : EnemyController,IParasiteHost
     // 寄生されたときの処理
     public void OnParasiteized()
     {
-
+        // 多分スプライトの変更とか
     }
 
     // 寄生解除の処理

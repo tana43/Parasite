@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour
     // 各種移動処理
     private CharacterController2D characterController_;
 
-    // 寄生処理の担うコンポーネント
+    // 寄生処理を担うコンポーネント
     private Parasite parasite_;
 
     private PlayerInput input_;
 
-    [Header("横方向への速度")]
+    [Header("横方向への速度"),SerializeField]
     private float horizontalSpeed_ = 5.0f;
 
     [Header("落下速度"),SerializeField]
@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("ジャンプ力"),SerializeField]
     private float jumpPower_ = 5.0f;
+    [Header("ジャンプ持続時間"),SerializeField]
+    private float jumpDuration_ = 0.5f;
+
+    private float jumpTimer_;
 
     private Vector2 moveVector_;
 
@@ -70,12 +74,16 @@ public class PlayerController : MonoBehaviour
     public void UpdateVerticalMovement()
     {
         // 重力処理
-        moveVector_.y -= gravity_;
+        moveVector_.y -= gravity_ * Time.deltaTime;
 
         // 落下速度制限
-        if (moveVector_.y < maxFallSpeed_)
+        if (moveVector_.y < -maxFallSpeed_)
         {
             moveVector_.y = -maxFallSpeed_;
+        }
+        if(characterController_.isGrounded_)
+        {
+            moveVector_.y = 0f;
         }
     }
 
@@ -84,10 +92,27 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void UpdateJump()
     {
+        if(characterController_.isGrounded_)
+        {
+            jumpTimer_ = 0f;
+        }
+
+        // 長押し中は常にジャンプするような仕組みにする
         if(input_.inputJump_)
         {
-            moveVector_.y += jumpPower_;
+            if(jumpTimer_ < jumpDuration_)
+            {
+                moveVector_.y = jumpPower_;
+                jumpTimer_ += Time.deltaTime;
+            }
+        }
+        else
+        {
+            if (!characterController_.isGrounded_)
+            {
+                // 着地していないのにボタンが離されたとき、ジャンプさせない
+                jumpTimer_ = jumpDuration_;
+            }
         }
     }
-   
 }

@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
     public bool inputAttack_ { get; private set; }
     public float inputHorizontalMove_ { get; private set; }
     public bool inputJump_ { get; private set; }
-    public bool inputParasiteAttack_ { get; private set; }
+    public bool inputParasiticAttack_ { get; private set; }
 
     // Update is called once per frame
     void Update()
@@ -38,6 +38,6 @@ public class PlayerInput : MonoBehaviour
 
     private void UpdateParasiteAttack()
     {
-        inputParasiteAttack_ = Input.GetKeyDown(KeyCode.F);
+        inputParasiticAttack_ = Input.GetKeyDown(KeyCode.F);
     }
 }

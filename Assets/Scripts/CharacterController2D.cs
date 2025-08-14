@@ -54,6 +54,8 @@ public class CharacterController2D : MonoBehaviour
     {
         // RigidBodyの当たり判定を座標基準から、移動した軌跡で計算するように変更
         rigidbody2D_.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+        rigidbody2D_.freezeRotation = true;
     }
 
     // Update is called once per frame

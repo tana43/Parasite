@@ -10,17 +10,20 @@ using UnityEngine;
 /// </summary>
 public class Parasite : MonoBehaviour
 {
-    [Header("宿主"),SerializeField]
-    private IParasiteHost currentHost_;
+    [Header("宿主")]
+    public IParasiteHost currentHost_;
 
     [SerializeField] private MovementModule currentMovement_ = null;
     [SerializeField] private HealthModule currentHealth_ = null;
 
-    private HorizontalMovementModule defaultMovement_ = new HorizontalMovementModule();
+    private WalkJumpMovementModule defaultMovement_ = new WalkJumpMovementModule();
     private OneHealthModule defaultHealth_ = new OneHealthModule();
 
     public MovementModule GetMovementModule() => currentMovement_;
     public HealthModule GetHealthModule() => currentHealth_;
+
+    [Header("寄生時に機能を止めるコンポーネント"), SerializeField]
+    private Behaviour[] disableComponents_;
 
     private Damageable damageable_;
 
@@ -42,7 +45,16 @@ public class Parasite : MonoBehaviour
     public void Parasitize(IParasiteHost host)
     {
         // 寄生解除処理
-        currentHost_.OnReleased();
+        if(currentHost_ != null)
+        {
+            currentHost_.OnReleased();
+
+            // 寄生後は邪魔になるコンポーネントを停止
+            for(int i = 0; i < disableComponents_.Length; i++)
+            {
+                disableComponents_[i].enabled = false;
+            }
+        }
 
         currentHost_ = host;
 
@@ -65,6 +77,7 @@ public class Parasite : MonoBehaviour
     {
         // 宿主を解放
         currentHost_.OnReleased();
+        currentHost_ = null;
 
         // 各モジュールの入れ替え
         currentMovement_ = defaultMovement_;
@@ -73,5 +86,11 @@ public class Parasite : MonoBehaviour
         // 体力の最大値を設定し全回復
         damageable_.SetMaxHealth(currentHealth_.GetMaxHealth());
         damageable_.FullRecovery();
+
+        // 寄生後に停止したコンポーネントを起動
+        for (int i = 0; i < disableComponents_.Length; i++)
+        {
+            disableComponents_[i].enabled = false;
+        }
     }
 }
