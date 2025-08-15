@@ -17,11 +17,11 @@ public class ParasiticAttack : MonoBehaviour
     {
         if(input_.inputParasiticAttack_)
         {
-            IParasiteHost host = collision.transform.GetComponent<IParasiteHost>();
+            ParasiteHost host = collision.transform.GetComponent<ParasiteHost>();
             if(host != null)
             {
                 // äÒê∂Ç∑ÇÈ
-                owner_.Parasitize(host);
+                owner_.Parasitize(ref host);
             }
         }
     }

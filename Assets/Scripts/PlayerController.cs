@@ -6,8 +6,11 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
-    // 各種移動処理
+    // 各種移動処理を担うコンポーネント
     private CharacterController2D characterController_;
+
+    // 本体のCharacterController
+    private CharacterController2D ownerCharacterController_;
 
     // 寄生処理を担うコンポーネント
     private Parasite parasite_;
@@ -35,14 +38,23 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        characterController_ = GetComponent<CharacterController2D>();
+        ownerCharacterController_ = GetComponent<CharacterController2D>();
+        characterController_ = ownerCharacterController_;
         parasite_ = GetComponent<Parasite>();
         input_ = GetComponent<PlayerInput>();
     }
 
+    private void Start()
+    {
+        parasite_.OnParasite += SwitchingCharacterController;
+    }
+
     private void FixedUpdate()
     {
-        characterController_.Move(moveVector_ * Time.deltaTime);
+        // 宿主がいるなら宿主を移動
+        // いないなら本体を移動
+        Vector2 moveVec = moveVector_* Time.deltaTime;
+        characterController_.Move(moveVec);
     }
 
     // Update is called once per frame
@@ -113,6 +125,19 @@ public class PlayerController : MonoBehaviour
                 // 着地していないのにボタンが離されたとき、ジャンプさせない
                 jumpTimer_ = jumpDuration_;
             }
+        }
+    }
+
+    // 寄生先のCharacterControllerを操作するかを切り替えさせる処理
+    void SwitchingCharacterController()
+    {
+        if(parasite_.currentHost_ != null)
+        {
+            characterController_ = parasite_.hostCharacterController_;
+        }
+        else
+        {
+            characterController_ = ownerCharacterController_;
         }
     }
 }
