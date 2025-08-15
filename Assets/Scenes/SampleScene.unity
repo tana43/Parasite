@@ -394,7 +394,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.21133333}
+  m_Offset: {x: 0, y: 0.48}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
 --- !u!114 &1166290262
@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 1503733709}
   - component: {fileID: 1503733710}
   - component: {fileID: 1503733711}
+  - component: {fileID: 1503733712}
   m_Layer: 0
   m_Name: Parasite
   m_TagString: Untagged
@@ -653,6 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0104720534cc5e4fba5df3f384a6ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHost_: {fileID: 0}
   disableComponents_: []
 --- !u!114 &1503733710
 MonoBehaviour:
@@ -701,6 +703,36 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.5, y: 1.2}
   m_Direction: 0
+--- !u!114 &1503733712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503733699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d2d2aa85e808346a038aaf29cf034f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_: 1
+  maxHealth_: 2
+  invulnerabiltyTime_: 0.36
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAlreadyDead:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReceiveDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHitWhileInvulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInvincibleCanceled:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1805234935
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +871,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6031228729040550109, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      propertyPath: parasiteWorm_
+      value: 
+      objectReference: {fileID: -1748316515, guid: 9dbd615eb42bafc46b7cde3a6a2b4e99, type: 3}
     - target: {fileID: 6411031107198144166, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
       propertyPath: m_Name
       value: Worm
@@ -850,6 +886,22 @@ PrefabInstance:
     - target: {fileID: 6564502083856006631, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703775309832969814, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 488a740394deb3c49948fd999378130f, type: 3}
+    - target: {fileID: 7703775309832969814, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703775309832969814, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703775309832969814, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8249373176668870857, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
       propertyPath: m_LocalPosition.x
