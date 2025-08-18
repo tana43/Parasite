@@ -30,9 +30,9 @@ public class Parasite : MonoBehaviour
     private Behaviour[] disableComponents_;
 
     private Damageable damageable_;
-    private SpriteRenderer spriteRenderer_;
     private Collider2D collider_;
     public CharacterController2D hostCharacterController_ { get; private set; }
+    public  SpriteRenderer hostSpriteRenderer_ { get; private set; }
 
     // Šñ¶‚µ‚½‚Æ‚«‚ÉŒÄ‚Ño‚³‚ê‚éˆ—
     public event Action OnParasite;
@@ -42,7 +42,7 @@ public class Parasite : MonoBehaviour
     private void Awake()
     {
         damageable_ = GetComponent<Damageable>();
-        spriteRenderer_ = GetComponent<SpriteRenderer>();
+        hostSpriteRenderer_ = GetComponent<SpriteRenderer>();
         collider_ = GetComponent<Collider2D>();
     }
 
@@ -69,7 +69,7 @@ public class Parasite : MonoBehaviour
         {
             disableComponents_[i].enabled = false;
         }
-        spriteRenderer_.enabled = false;
+        hostSpriteRenderer_.enabled = false;
         collider_.enabled = false;
 
 
@@ -116,7 +116,7 @@ public class Parasite : MonoBehaviour
         {
             disableComponents_[i].enabled = false;
         }
-        spriteRenderer_.enabled = false;
+        hostSpriteRenderer_.enabled = false;
 
         OnReleased.Invoke();
     }

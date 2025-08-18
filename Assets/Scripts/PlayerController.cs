@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     // 寄生処理を担うコンポーネント
     private Parasite parasite_;
 
+    private Animator animator_;
+
+    private SpriteRenderer ownerSpriteRenderer_;
+    private SpriteRenderer spriteRenderer_;
+
     private PlayerInput input_;
 
     [Header("横方向への速度"),SerializeField]
@@ -35,6 +40,11 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveVector_;
 
+    // まばたきをしてから何秒経過したか
+    private float timeSinceLastBlink_;
+    [Header("まばたきの頻度"), SerializeField]
+    private float dryEyesFrequency_ = 3.0f;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -42,6 +52,9 @@ public class PlayerController : MonoBehaviour
         characterController_ = ownerCharacterController_;
         parasite_ = GetComponent<Parasite>();
         input_ = GetComponent<PlayerInput>();
+        animator_ = GetComponent<Animator>();
+        ownerSpriteRenderer_ = GetComponent<SpriteRenderer>();
+        spriteRenderer_ = ownerSpriteRenderer_;
     }
 
     private void Start()
@@ -71,6 +84,8 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("MovementModuleが設定されていません");
         }
+
+        AnimatorControllerUpdate();
     }
 
     /// <summary>
@@ -81,6 +96,16 @@ public class PlayerController : MonoBehaviour
         float inputMove = input_.inputHorizontalMove_;
 
         moveVector_.x = inputMove * horizontalSpeed_; 
+
+        // 移動方向に応じてスプライトの反転
+        if(inputMove > 0.01f)
+        {
+            spriteRenderer_.flipX = true;
+        }
+        else if(inputMove < -0.01f)
+        {
+            spriteRenderer_.flipX = false;
+        }
     }
 
     public void UpdateVerticalMovement()
@@ -134,10 +159,30 @@ public class PlayerController : MonoBehaviour
         if(parasite_.currentHost_ != null)
         {
             characterController_ = parasite_.hostCharacterController_;
+            spriteRenderer_ = parasite_.hostSpriteRenderer_;
         }
         else
         {
             characterController_ = ownerCharacterController_;
+            spriteRenderer_ = ownerSpriteRenderer_;
+        }
+    }
+
+    void AnimatorControllerUpdate()
+    {
+        animator_.SetFloat("HorizontalMove", Mathf.Abs(moveVector_.x));
+
+        animator_.SetFloat("NormalizedTime", animator_.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
+        if(timeSinceLastBlink_ > dryEyesFrequency_)
+        {
+            animator_.SetBool("Blink", true);
+            timeSinceLastBlink_ = 0f;
+        }
+        else
+        {
+            animator_.SetBool("Blink", false);
+            timeSinceLastBlink_ += Time.deltaTime;
         }
     }
 }

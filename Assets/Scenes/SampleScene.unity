@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: 1503733710}
   - component: {fileID: 1503733711}
   - component: {fileID: 1503733712}
+  - component: {fileID: 1503733713}
   m_Layer: 0
   m_Name: Parasite
   m_TagString: Untagged
@@ -733,6 +734,27 @@ MonoBehaviour:
   OnInvincibleCanceled:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &1503733713
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503733699}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9c512bca451a8dd4aab6f4789724a70b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1805234935
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,6 +908,10 @@ PrefabInstance:
     - target: {fileID: 6564502083856006631, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7703775309832969814, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
+      propertyPath: m_FlipX
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7703775309832969814, guid: ca7d4b41361a8fb4ba839da0d0a266bb, type: 3}
       propertyPath: m_Sprite
