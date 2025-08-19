@@ -20,7 +20,7 @@ public class Parasite : MonoBehaviour
     [SerializeField] private MovementModule currentMovement_ = null;
     [SerializeField] private HealthModule currentHealth_ = null;
 
-    private WalkOnlyMovementModule defaultMovement_ = new WalkOnlyMovementModule();
+    private WalkJumpMovementModule defaultMovement_ = new WalkJumpMovementModule();
     private OneHealthModule defaultHealth_ = new OneHealthModule();
 
     public MovementModule GetMovementModule() => currentMovement_;
