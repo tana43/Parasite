@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveVector_;
 
     // ‚Ü‚Î‚½‚«‚ð‚µ‚Ä‚©‚ç‰½•bŒo‰ß‚µ‚½‚©
-    private float timeSinceLastBlink_;
+    private float timeSinceLastBlink_ = 0f;
     [Header("‚Ü‚Î‚½‚«‚Ì•p“x"), SerializeField]
     private float dryEyesFrequency_ = 3.0f;
 
